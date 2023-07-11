@@ -1,3 +1,5 @@
+using _01_FirstProject.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace _01_FirstProject
+namespace FirstProject
 {
     public class Startup
     {
@@ -24,6 +26,11 @@ namespace _01_FirstProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // Thay hàm OnConfiguring trong file firstNetCoreProjectContext.cs
+            var connectionString = Configuration.GetConnectionString("firstNetCoreProjectDatabase");
+            services.AddDbContext<firstNetCoreProjectContext>(options => options.UseSqlServer(connectionString));
+       
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +55,29 @@ namespace _01_FirstProject
 
             app.UseEndpoints(endpoints =>
             {
+                //https://localhost:44393/News
+                //https://localhost:44393/BinhNews
+
+                endpoints.MapControllerRoute(
+                   name: "Sercure",
+                   pattern: "Sercure",
+                   new { controller = "Admin", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                   name: "News",
+                   pattern: "BinhNews",
+                   new { controller = "News", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                 name: "Users",
+                 pattern: "Users",
+                 new { controller = "Users", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                    name: "Home",
+                    pattern: "{Home}",
+                    new { controller = "Home", action = "Index" });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

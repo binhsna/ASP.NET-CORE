@@ -1,4 +1,4 @@
-﻿using _01_FirstProject.Models;
+﻿using FirstProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace _01_FirstProject.Controllers
+namespace FirstProject.Controllers
 {
     public class HomeController : Controller
     {
